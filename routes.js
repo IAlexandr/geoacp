@@ -3,8 +3,7 @@ var finder = require('./lib/finder');
 module.exports = function (app) {
 
     var resSetOptions = {
-        'Content-Type': 'text/plain',
-        'charset': "windows-1251"
+        'Content-Type': 'text/plain'
     };
 
     app.get('/:collection/count', function (req, res) {
