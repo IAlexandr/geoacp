@@ -2,6 +2,11 @@ var finder = require('./lib/finder');
 
 module.exports = function (app) {
 
+    var resSetOptions = {
+        'Content-Type': 'text/plain',
+        'charset': "windows-1251"
+    };
+
     app.get('/:collection/count', function (req, res) {
         var expression;
 
@@ -48,6 +53,7 @@ module.exports = function (app) {
         }
 
         finder.find(req.params.collection, {expression: expression, skip: skip, limit: limit, sort: sort}, function (err, result) {
+            res.set(resSetOptions);
             if (err) {
                 return res.json(500, err);
             }
@@ -57,6 +63,7 @@ module.exports = function (app) {
 
     app.get('/:collection/:objectId', function (req, res) {
         finder.findByObjectId(req.params.objectId, req.params.collection, function (err, result) {
+            res.set(resSetOptions);
             if (err) {
                 return res.json(500, err);
             }
