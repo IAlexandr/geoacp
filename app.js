@@ -1,6 +1,15 @@
 var express = require('express');
 
 var app = express();
+var cors = require('cors');
+
+app.use(cors({
+    origin: true,
+    headers: 'X-Requested-With',
+    credentials: true
+}));
+
+app.options('*', cors());
 
 require('./appsetup')(app);
 require('./routes')(app);

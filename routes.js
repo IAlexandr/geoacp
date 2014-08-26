@@ -13,6 +13,7 @@ module.exports = function (app) {
             try {
                 expression = JSON.parse(req.query.expression);
             } catch (err) {
+				res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
                 return res.send(500, err.message);
             }
         } else {
