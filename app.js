@@ -1,7 +1,7 @@
 var express = require('express');
 
 var app = express();
-var cors = require('cors');
+/*var cors = require('cors');
 
 app.use(cors({
     origin: true,
@@ -9,7 +9,7 @@ app.use(cors({
     credentials: true
 }));
 
-app.options('*', cors());
+app.options('*', cors());*/
 
 require('./appsetup')(app);
 require('./routes')(app);
