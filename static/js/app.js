@@ -1,7 +1,5 @@
-angular.module('ngFias', ['ngResource', 'ngRoute', 'ui.bootstrap', 'RecursionHelper'])
+angular.module('ngFias', ['ngResource'])
 
     .controller("TreeController", function ($scope) {
-        $scope.selected = {};
-        $scope.address = {};
-        // получаем у объекта Чувашия все дочерние объекты
+
     });
