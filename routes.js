@@ -51,7 +51,7 @@ module.exports = function (app) {
         } catch (err) {
             return res.send(500, err.message);
         }
-
+        console.log(expression);
         finder.find(req.params.collection, {expression: expression, skip: skip, limit: limit, sort: sort}, function (err, result) {
             res.set(resSetOptions);
             if (err) {
@@ -61,7 +61,7 @@ module.exports = function (app) {
         });
     });
 
-    app.get('/:collection/:objectId', function (req, res) {
+  /*  app.get('/:collection/:objectId', function (req, res) {
         finder.findByObjectId(req.params.objectId, req.params.collection, function (err, result) {
             res.set(resSetOptions);
             if (err) {
@@ -69,7 +69,7 @@ module.exports = function (app) {
             }
             return res.json(200, result);
         });
-    });
+    });*/
 
     app.get('/', function (req, res) {
         res.render('index');
