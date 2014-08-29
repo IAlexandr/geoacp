@@ -146,7 +146,6 @@ angular.module('ngFias')
     .directive("map", function () {
         return {
             restrict: "E",
-            scope: {},
             templateUrl: "views/templates/map.html",
             link: function ($scope, element, attr) {
                 $scope.message = 'map';
@@ -191,7 +190,8 @@ angular.module('ngFias')
                         params.layerOption = IdentifyParameters.LAYER_OPTION_VISIBLE;
                         task.execute(params, function (res) {
                             if (res.length > 0) {
-                                console.log(res.length);
+                                $scope.res = res;
+                                $scope.$apply();
                             }
                         });
                     })

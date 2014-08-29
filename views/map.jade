@@ -6,4 +6,10 @@ block head
 
 block body
     map
+    ul
+        li(ng-repeat="r in res")
+            b {{r.layerName}}
+            br
+            div Атрибуты: {{r.feature.attributes | json}}
+
     script(src='//js.arcgis.com/3.10/')
