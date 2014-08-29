@@ -5,6 +5,7 @@ html(lang="en", ng-app="ngFias")
         link(rel="stylesheet", href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css')
         link(rel="stylesheet", href='views/st.css')
         base(href="#{iisBaseUrl || ''}/.")
+        block head
     body
         block body
         script(src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')

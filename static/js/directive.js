@@ -142,4 +142,60 @@ angular.module('ngFias')
 
             }
         };
+    })
+    .directive("map", function () {
+        return {
+            restrict: "E",
+            scope: {},
+            templateUrl: "views/templates/map.html",
+            link: function ($scope, element, attr) {
+                $scope.message = 'map';
+
+                require([
+                    "esri/map",
+                    "esri/dijit/HomeButton",
+                    'esri/layers/ArcGISDynamicMapServiceLayer',
+                    'esri/tasks/IdentifyTask',
+                    'esri/tasks/IdentifyParameters',
+                    "dojo/domReady!"
+                ], function(
+                    Map,
+                    HomeButton,
+                    ArcGISDynamicMapServiceLayer,
+                    IdentifyTask,
+                    IdentifyParameters
+                    )  {
+
+                    var map = new Map("map", {
+                        center: [47.076416, 55.465329],
+                        zoom: 8,
+                        basemap: "streets"
+                    });
+
+                    var home = new HomeButton({
+                        map: map
+                    }, "HomeButton");
+                    home.startup();
+
+                    var lr = new ArcGISDynamicMapServiceLayer('http://si-sdiis/arcgis/rest/services/ai/acp_ulic_doma_granic_np/MapServer');
+                    map.addLayer(lr);
+
+                    map.on('click', function (e) {
+                        var task = new IdentifyTask('http://si-sdiis/arcgis/rest/services/ai/acp_ulic_doma_granic_np/MapServer');
+                        var params = new IdentifyParameters();
+                        params.tolerance = 2;
+                        params.returnGeometry = true;
+                        params.mapExtent = map.extent;
+                        //params.layerIds = item.view.mapLayer.visibleLayers;
+                        params.geometry = e.mapPoint;
+                        params.layerOption = IdentifyParameters.LAYER_OPTION_VISIBLE;
+                        task.execute(params, function (res) {
+                            if (res.length > 0) {
+                                console.log(res.length);
+                            }
+                        });
+                    })
+                });
+            }
+        }
     });
