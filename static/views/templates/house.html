@@ -1,5 +1,5 @@
-<div class="form-group">
-    <h3>{{message}}</h3>
-    <input id="{{$id}}" ng-show="houses.length > 0" class="typeahead form-control" type="text" placeholder="номер дома">
+<div id="house" class="form-group">
+    <span>{{message}}</span>
+    <input style="width:70px" id="{{$id}}" ng-show="houses.length > 0" class="typeahead form-control" type="text" placeholder="номер">
     <div>{{house | json}}</div>
 </div>

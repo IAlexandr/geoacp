@@ -16,7 +16,9 @@ angular.module('ngFias')
             scope: {},
             templateUrl: "views/templates/house.html",
             link: function ($scope, element, attr) {
-                rFactory.getArray({collection: 'house21', action: 'find', expression: {AOGUID: attr.aoguid}, limit: 1000}, function (res) {
+                var todayString = (new Date()).toISOString().slice(0, 10);
+
+                rFactory.getArray({collection: 'house21', action: 'find', expression: JSON.stringify({AOGUID: attr.aoguid, ENDDATE: { $gt: todayString }}), limit: 1000, sort: {'HOUSENUM': 1}}, function (res) {
                     $scope.houses = res;
 
                     if ($scope.houses.length == 0) {
@@ -78,6 +80,7 @@ angular.module('ngFias')
                             minLength: 0
                         }
                     ];
+
                     var fMatcherGroupByAOLEVEL = function (objs, lvl) {
                         return function findMatches(q, cb) {
                             var matches, substrRegex;
@@ -100,11 +103,16 @@ angular.module('ngFias')
                     var createDataSet = function (objs, lvl) {
                         argArr.push({
                             name: 'lvl' + lvl,
-                            displayKey: 'FORMALNAME',
+                            displayKey: function (obj) {
+                                return obj.FORMALNAME + ' ' + obj.SHORTNAME;
+                            },
                             source: fMatcherGroupByAOLEVEL($scope.objs, lvl),
                             templates: {
                                 header: '<h4 class="level-name">' + aolevels[lvl] + "</h4>",
-                                suggestion: Handlebars.compile('{{SHORTNAME}} - {{FORMALNAME}}')
+                                suggestion: function (obj) {
+                                    return obj.FORMALNAME + ' <span class="addrobj_shortname">' +
+                                        obj.SHORTNAME + '</span>';
+                                }
                             }
                         });
                     };
