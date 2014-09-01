@@ -147,8 +147,7 @@ angular.module('ngFias')
         return {
             restrict: "E",
             templateUrl: "views/templates/map.html",
-            link: function ($scope, element, attr) {
-                $scope.message = 'map';
+            link: function () {
 
                 require([
                     "esri/map",
@@ -156,45 +155,60 @@ angular.module('ngFias')
                     'esri/layers/ArcGISDynamicMapServiceLayer',
                     'esri/tasks/IdentifyTask',
                     'esri/tasks/IdentifyParameters',
+                    "agsjs/layers/GoogleMapsLayer",
                     "dojo/domReady!"
-                ], function(
-                    Map,
-                    HomeButton,
-                    ArcGISDynamicMapServiceLayer,
-                    IdentifyTask,
-                    IdentifyParameters
-                    )  {
+                ], function (Map, HomeButton, ArcGISDynamicMapServiceLayer, IdentifyTask, IdentifyParameters, GoogleMapsLayer) {
+
+                    var googleLayer;
+
 
                     var map = new Map("map", {
                         center: [47.076416, 55.465329],
                         zoom: 8,
-                        basemap: "streets"
+                        logo: false
+                        // basemap: "streets"
                     });
+
+                    googleLayer = new GoogleMapsLayer({
+                        apiOptions: {
+                            libraries: 'weather,panoramio'
+                        },
+                        mapOptions: {  // options passed to google.maps.Map contrustor
+                            streetViewControl: false // whether to display street view control. Default is true.
+                        }
+                    });
+                    map.addLayer(googleLayer);
+
+
+                    googleLayer.setMapTypeId(agsjs.layers.GoogleMapsLayer.MAP_TYPE_HYBRID);
 
                     var home = new HomeButton({
                         map: map
                     }, "HomeButton");
                     home.startup();
 
-                    var lr = new ArcGISDynamicMapServiceLayer('http://si-sdiis/arcgis/rest/services/ai/acp_ulic_doma_granic_np/MapServer');
-                    map.addLayer(lr);
 
-                    map.on('click', function (e) {
-                        var task = new IdentifyTask('http://si-sdiis/arcgis/rest/services/ai/acp_ulic_doma_granic_np/MapServer');
-                        var params = new IdentifyParameters();
-                        params.tolerance = 2;
-                        params.returnGeometry = true;
-                        params.mapExtent = map.extent;
-                        //params.layerIds = item.view.mapLayer.visibleLayers;
-                        params.geometry = e.mapPoint;
-                        params.layerOption = IdentifyParameters.LAYER_OPTION_VISIBLE;
-                        task.execute(params, function (res) {
-                            if (res.length > 0) {
-                                $scope.res = res;
-                                $scope.$apply();
-                            }
-                        });
-                    })
+                    /* РАБОЧИЙ КОД !!! TODO пока нет лицензии не работает.
+
+                     var lr = new ArcGISDynamicMapServiceLayer('http://si-sdiis/arcgis/rest/services/ai/acp_ulic_doma_granic_np/MapServer');
+                     map.addLayer(lr);
+
+                     map.on('click', function (e) {
+                     var task = new IdentifyTask('http://si-sdiis/arcgis/rest/services/ai/acp_ulic_doma_granic_np/MapServer');
+                     var params = new IdentifyParameters();
+                     params.tolerance = 2;
+                     params.returnGeometry = true;
+                     params.mapExtent = map.extent;
+                     //params.layerIds = item.view.mapLayer.visibleLayers;
+                     params.geometry = e.mapPoint;
+                     params.layerOption = IdentifyParameters.LAYER_OPTION_VISIBLE;
+                     task.execute(params, function (res) {
+                     if (res.length > 0) {
+                     $scope.res = res;
+                     $scope.$apply();
+                     }
+                     });
+                     })*/
                 });
             }
         }
