@@ -322,9 +322,9 @@ angular.module('ngFias')
 
                     template = '<input type="text" ng-model="newAttrs[field.name]" name="' + $scope.field.name + '"' +
                         opts + '"/>' +
-                        '<span ng-show="attrForm.' + $scope.field.name + '.$error.required">Обязательное поле для заполнения</span>' +
+                        '<div ng-show="attrForm.' + $scope.field.name + '.$error.required">Обязательное поле для заполнения!</div>' +
                         '<div class="error" ng-show="attrForm.' + $scope.field.name + '.$error.maxlength">' +
-                        'Слишком длинное значение! (макс. кол-во символов:' + ngMaxLength + ')</div><br><div ng-show="attrForm..$invalid">err</div>';
+                        'Слишком длинное значение! (макс. кол-во символов:' + ngMaxLength + ')</div>';
                 }
 
 
