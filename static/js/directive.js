@@ -252,15 +252,6 @@ angular.module('ngFias')
                         }
                     });
 
-                    $scope.getAlias = function (att) {
-                        var alias = att;
-                        var tt = _.where($scope.alias, {name: att});
-                        if (tt.length > 0) {
-                            alias = tt[0].alias;
-                        }
-                        return alias;
-                    };
-
                     $scope.applyEdits = function () {
                         $scope.feature.attributes = $scope.newAttrs;
 
