@@ -162,8 +162,9 @@ angular.module('ngFias')
                     "agsjs/layers/GoogleMapsLayer",
                     "esri/layers/FeatureLayer",
                     "esri/tasks/GeometryService",
+                    "esri/dijit/BasemapGallery",
                     "dojo/domReady!"
-                ], function (Map, Config, HomeButton, ArcGISDynamicMapServiceLayer, IdentifyTask, IdentifyParameters, GoogleMapsLayer, FeatureLayer, GeometryService) {
+                ], function (Map, Config, HomeButton, ArcGISDynamicMapServiceLayer, IdentifyTask, IdentifyParameters, GoogleMapsLayer, FeatureLayer, GeometryService, BasemapGallery) {
 
 
                     Config.defaults.io.proxyUrl = "http://sdi.cap.ru/geoworks/proxy/proxy.ashx";
@@ -177,6 +178,18 @@ angular.module('ngFias')
                         basemap: "streets"
                     });
 
+                    var basemapGallery = new BasemapGallery({
+                        showArcGISBasemaps: true,
+                        toggleReference: true,
+                        google: {
+                            apiOptions: {
+                                v: '3.6' // use a specific version is recommended for production system.
+                            }
+                        },
+                        map: map
+                    }, "basemapGallery");
+                    basemapGallery.startup();
+
                     /* var googleLayer;
                      googleLayer = new GoogleMapsLayer({
                      apiOptions: {
@@ -187,8 +200,8 @@ angular.module('ngFias')
                      }
                      });
                      map.addLayer(googleLayer);
-                     googleLayer.setMapTypeId(agsjs.layers.GoogleMapsLayer.MAP_TYPE_HYBRID);*/
-
+                     googleLayer.setMapTypeId(agsjs.layers.GoogleMapsLayer.MAP_TYPE_HYBRID);
+*/
                     var home = new HomeButton({
                         map: map
                     }, "HomeButton");
@@ -208,9 +221,10 @@ angular.module('ngFias')
                         params.layerOption = IdentifyParameters.LAYER_OPTION_VISIBLE;
                         task.execute(params, function (res) {
                             if (res.length > 0) {
-                                if (element[0].children[1]) {
+                                /*if (element[0].children[1]) {
                                     element[0].children[1].remove();
-                                }
+                                }*/
+                                element.find('editor').remove();
                                 $scope.$apply();
                                 element.append('<editor objectid="' + res[0].feature.attributes.OBJECTID + '"/>');
                                 $compile(element.contents())($scope);
