@@ -1,0 +1,11 @@
+<div>
+    <div>{{message}}</div>
+    <form name="attrForm" style="width:483px; border:4px double black;" ng-show="feature">
+        <div ng-repeat="field in fields">
+            <editor-field/>
+        </div>
+        <button ng-click="applyEdits()" ng-disabled="equalsCheck() || attrForm.$invalid">Сохранить</button>
+        <button ng-click="reset()" ng-disabled="equalsCheck()">Сбросить</button>
+        <button ng-click="close()">Закрыть</button>
+    </form>
+</div>

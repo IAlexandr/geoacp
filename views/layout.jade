@@ -1,10 +1,11 @@
 doctype html
 html(lang="en", ng-app="ngFias")
     head
-        title Angular routing example
+        title geoacp
         link(rel="stylesheet", href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css')
         link(rel="stylesheet", href='views/st.css')
         base(href="#{iisBaseUrl || ''}/.")
+        block head
     body
         block body
         script(src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')
@@ -20,6 +21,7 @@ html(lang="en", ng-app="ngFias")
         script(type="text/javascript", src='js/lib/underscore.1.6.0.min.js')
         script(src="https://twitter.github.io/typeahead.js/js/handlebars.js")
         script(src="https://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js")
+
 
         script(src='js/app.js')
         script(src='js/factory.js')

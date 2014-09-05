@@ -1,0 +1,20 @@
+extends layout
+block head
+    link(rel="stylesheet", type="text/css", href="http://js.arcgis.com/3.10/js/esri/css/esri.css")
+
+block body
+    div(ng-controller="MapController")
+        script(type='text/javascript').
+            console.log(location.pathname.replace(/\/[^/]+$/, "")+'/js/lib/agsjs');
+            var dojoConfig  = {
+                parseOnLoad: true,
+                packages: [{
+                    "name": "agsjs",
+                    "location": location.pathname.replace(/\/[^/]+$/, "")+'/js/lib/agsjs'
+                    //"location": 'http://gmaps-utility-gis.googlecode.com/svn/tags/agsjs/2.02/xbuild/agsjs'
+                }]
+            };
+
+        map
+
+    script(src='//js.arcgis.com/3.10/')
