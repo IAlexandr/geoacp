@@ -11,7 +11,7 @@ angular.module('ngFias')
                     STREET: "Ленина",
                     ANNO: 'Информация по улице',
                     SYMTYPE: 1,
-                    CHECK: 1
+                    CHECK: "False"
                 };
                 // объект для изменения
                 $scope.res = angular.copy($scope.oldObj);
@@ -28,7 +28,7 @@ angular.module('ngFias')
                         length: 10,
                         nullable: false,
                         editable: true,
-                        order: 1
+                        order: 4
                     },
                     'SYMTYPE': {
                         domain: true,
@@ -47,13 +47,15 @@ angular.module('ngFias')
                         rows: 2,
                         nullable: true,
                         editable: true,
-                        order: 4
+                        order: 1
                     },
                     'CHECK': {
                         alias: 'Проверен',
                         show: true,
                         controlType: 'checkbox',
                         length: 1,
+                        trueValue: 'True',
+                        falseValue: 'False',
                         nullable: false,
                         editable: true,
                         order: 1
