@@ -1,0 +1,16 @@
+<h3>Форма редактирования</h3>
+<form name="editForm" >
+    res: {{res | json}}
+    <div ng-repeat="fd in formDefinition | orderObjectBy:'order' " ng-switch="fd.controlType">
+        <div ng-show="fd.show">
+            <strong>{{fd.alias}}:</strong>
+            <edit-field-text ng-switch-when="text" res-obj="res" fd-obj="fd"></edit-field-text>
+            <edit-field-textarea ng-switch-when="textarea"  res-obj="res" fd-obj="fd"></edit-field-textarea>
+            <edit-field-select ng-switch-when="select" fields-test="fields" res-obj="res" fd-obj="fd"></edit-field-select>
+            <edit-field-checkbox ng-switch-when="checkbox" res-obj="res" fd-obj="fd"></edit-field-checkbox>
+        </div>
+    </div>
+    {{editForm.$error | json}}
+    <button ng-click="applyEdits()" ng-disabled="equalsCheck() || editForm.$invalid">Сохранить</button>
+    <button ng-click="reset()" ng-disabled="equalsCheck()">Сбросить</button>
+</form>
