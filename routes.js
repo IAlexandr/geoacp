@@ -1,4 +1,4 @@
-var finder = require('./lib/finder');
+//var finder = require('./lib/finder');
 
 module.exports = function (app) {
 
@@ -77,4 +77,7 @@ module.exports = function (app) {
     app.get('/map', function (req, res) {
         res.render('map');
     });
+    app.get('/form', function (req, res) {
+        res.render('form');
+    })
 };
