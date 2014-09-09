@@ -19,16 +19,26 @@ angular.module('ngFias')
 
                 /* настройки отображения полей
                 * Обязательные поля:
-                *   > show:
-                *   > alias:
-                *   > controlType:
-                *   > nullable:
-                *   > editable:
-                *   > order:
+                *   > show: (Boolean) показывать поле
+                *   > alias: (String) Подпись поля
+                *   > controlType: ('text', 'textarea', 'num', 'select', 'checkbox') тип поля
+                *   > nullable: (Boolean) пустая строка
+                *   > editable: (Boolean) редактирование значения
+                *   > order: (Integer) порядок отображения
+                * Необязательные поля:
+                *   > length: (Integer) макс. допустимое кол-во символов
+                *   > rows: (Integer) (используется в 'textarea') кол-во строк
+                *   > trueValue: 'True' (любое значение) (используется в 'checkbox') значение в true состоянии
+                *   > falseValue: 'False' (любое значение) (используется в 'checkbox') значение в false состоянии
                 */
                 $scope.formDefinition = {
                     'OBJECTID': {
-                        show: false
+                        alias: 'OBJECTID',
+                        show: false,
+                        controlType: 'text',
+                        nullable: false,
+                        editable: false,
+                        order: 0
                     },
                     'STREET': {
                         alias: 'Улица',
