@@ -2,4 +2,5 @@ extends layout
 block body
     div(ng-controller="MapController")
         .container
-            edit-form
+            p {{featureAttrs | json}}
+            div(edit-form gw-model="featureAttrs" form-definition="formDefinition")

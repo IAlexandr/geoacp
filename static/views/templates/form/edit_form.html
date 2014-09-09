@@ -1,18 +1,15 @@
-<h3>Форма редактирования</h3>
 <form name="editForm" role="form" style="width:300px;">
     {{res | json}}
     <div ng-repeat="fd in formDefinition | orderObjectBy:'order' " ng-switch="fd.controlType">
         <div ng-show="fd.show">
             <div class="form-group">
                 <label>{{fd.alias}}</label>
-                <edit-field-text ng-switch-when="text" res-obj="res" fd-obj="fd" ></edit-field-text>
-                <edit-field-num ng-switch-when="num" res-obj="res" fd-obj="fd" ></edit-field-num>
-                <edit-field-textarea ng-switch-when="textarea" res-obj="res" fd-obj="fd"></edit-field-textarea>
-                <edit-field-select ng-switch-when="select" fields-test="fields" res-obj="res" fd-obj="fd"></edit-field-select>
-                <edit-field-checkbox ng-switch-when="checkbox" res-obj="res" fd-obj="fd"></edit-field-checkbox>
+                <div edit-field-text ng-switch-when="text" gw-model="model" fd-obj="fd" ></div>
+                <div edit-field-num ng-switch-when="num" gw-model="model" fd-obj="fd" ></div>
+                <div edit-field-textarea ng-switch-when="textarea" gw-model="model" fd-obj="fd"></div>
+                <div edit-field-select ng-switch-when="select" gw-model="model" fd-obj="fd"></div>
+                <div edit-field-checkbox ng-switch-when="checkbox" gw-model="model" fd-obj="fd"></div>
             </div>
         </div>
     </div>
-    <button ng-click="applyEdits()" class="btn btn-default" ng-disabled="equalsCheck() || editForm.$invalid">Сохранить</button>
-    <button ng-click="reset()" class="btn btn-default" ng-disabled="equalsCheck()">Сбросить</button>
 </form>

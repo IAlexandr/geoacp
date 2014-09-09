@@ -1,1 +1,1 @@
-<select ng-model="res[fd.formDefinitionKey]" class="form-control" name="{{fd.formDefinitionKey}}" ng-options="val.code as val.name for val in values" ng-required="{{!fd.nullable}}" ng-disabled="!fd.editable"></select>
+<select ng-model="model[fd.formDefinitionKey]" class="form-control" name="{{fd.formDefinitionKey}}" ng-options="val.code as val.name for val in fd.domain.codedValues" ng-required="{{!fd.nullable}}" ng-disabled="!fd.editable"></select>
