@@ -9,6 +9,7 @@ angular.module('ngFias')
                 $scope.oldObj = {
                     OBJECTID: 1,
                     STREET: "Ленина",
+                    HOUSE: 13,
                     ANNO: 'Информация по улице',
                     SYMTYPE: 1,
                     CHECK: "False"
@@ -16,7 +17,15 @@ angular.module('ngFias')
                 // объект для изменения
                 $scope.res = angular.copy($scope.oldObj);
 
-                // настройки отображения полей
+                /* настройки отображения полей
+                * Обязательные поля:
+                *   > show:
+                *   > alias:
+                *   > controlType:
+                *   > nullable:
+                *   > editable:
+                *   > order:
+                */
                 $scope.formDefinition = {
                     'OBJECTID': {
                         show: false
@@ -28,7 +37,15 @@ angular.module('ngFias')
                         length: 10,
                         nullable: false,
                         editable: true,
-                        order: 4
+                        order: 1
+                    },
+                    'HOUSE': {
+                        alias: 'Дом',
+                        show: true,
+                        controlType: 'num',
+                        nullable: false,
+                        editable: true,
+                        order: 2
                     },
                     'SYMTYPE': {
                         domain: true,
@@ -37,17 +54,17 @@ angular.module('ngFias')
                         controlType: 'select',
                         nullable: true,
                         editable: true,
-                        order: 2
+                        order: 3
                     },
                     'ANNO': {
                         alias: 'Примечание',
                         show: true,
                         controlType: 'textarea',
-                        length: 400,
+                        length: 40,
                         rows: 2,
-                        nullable: true,
+                        nullable: false,
                         editable: true,
-                        order: 1
+                        order: 4
                     },
                     'CHECK': {
                         alias: 'Проверен',
@@ -58,7 +75,7 @@ angular.module('ngFias')
                         falseValue: 'False',
                         nullable: false,
                         editable: true,
-                        order: 1
+                        order: 5
                     }
                 };
 
@@ -138,6 +155,20 @@ angular.module('ngFias')
             },
             link: function ($scope, element) {
 
+            }
+        }
+    })
+    .directive("editFieldNum", function () {
+        return {
+            restrict: "E",
+            templateUrl: "views/templates/form/edit_field_num.html",
+            scope: {
+                res: '=resObj',
+                fd: '=fdObj'
+            },
+            link: function ($scope, element) {
+                // только числа
+                $scope.numRegEx = /^\d+\.?\d+$/;
             }
         }
     })
