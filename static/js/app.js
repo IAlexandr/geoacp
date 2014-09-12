@@ -1,7 +1,7 @@
 angular.module('ngFias', ['ngResource'])
 
     .controller("TreeController", function ($scope) {
-        $scope.res = "";
+        $scope.sHouse = {test:true};
     })
     .controller("MapController", function ($scope) {
 

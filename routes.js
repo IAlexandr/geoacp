@@ -1,4 +1,4 @@
-//var finder = require('./lib/finder');
+var finder = require('./lib/finder');
 
 module.exports = function (app) {
 

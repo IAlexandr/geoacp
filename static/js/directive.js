@@ -13,7 +13,9 @@ angular.module('ngFias')
     .directive('house', function (rFactory) {
         return {
             restrict: "E",
-            scope: {},
+            scope: {
+                sHouse: '=selectedHouse'
+            },
             templateUrl: "views/templates/house.html",
             link: function ($scope, element, attr) {
                 var todayString = (new Date()).toISOString().slice(0, 10);
@@ -53,7 +55,7 @@ angular.module('ngFias')
                                     source: fMatcher($scope.houses)
                                 });
                             $('#' + $scope.$id).on('typeahead:selected', function (evt, data) {
-                                $scope.house = data;
+                                $scope.sHouse = data;
                                 $scope.$apply();
                             });
                         }
@@ -64,15 +66,18 @@ angular.module('ngFias')
     .directive("tree", function (rFactory, $compile, aolevels) {
         return {
             restrict: "E",
-            scope: {},
+            scope: {
+                sHouse: '=selectedHouse'
+            },
             templateUrl: "views/templates/tree.html",
             link: function ($scope, element, attr) {
+                var s = $scope.sHouse;
                 rFactory.getArray({collection: 'addrobj', action: 'find', expression: {"PARENTGUID": attr.aoguid},
                     limit: 1000, sort: {'SHORTNAME': 1, 'FORMALNAME': 1}}, function (res) {
                     $scope.objs = res;
 
                     if ($scope.objs.length == 0) {
-                        element.append("<house aoguid='" + attr.aoguid + "'/>");
+                        element.append("<house aoguid='" + attr.aoguid + "' selected-house='sHouse'/>");
                         $compile(element.contents())($scope);
                     }
 
@@ -138,7 +143,7 @@ angular.module('ngFias')
                         if (element[0].children[1]) {
                             element[0].children[1].remove();
                         }
-                        element.append("<tree aoguid='" + data.AOGUID + "'/>");
+                        element.append("<tree aoguid='" + data.AOGUID + "' selected-house='sHouse'/>");
                         $compile(element.contents())($scope);
                     });
                 });
